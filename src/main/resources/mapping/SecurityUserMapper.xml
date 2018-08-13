@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ynbwjf.myoauth.dao.SecurityUserMapper">
+  <resultMap id="BaseResultMap" type="com.ynbwjf.myoauth.entity.SecurityUser">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="xm" jdbcType="VARCHAR" property="xm" />
+    <result column="dh" jdbcType="VARCHAR" property="dh" />
+    <result column="dzyx" jdbcType="VARCHAR" property="dzyx" />
+    <result column="dw_id" jdbcType="BIGINT" property="dwId" />
+    <result column="dw_mc" jdbcType="VARCHAR" property="dwMc" />
+    <result column="bm_id" jdbcType="BIGINT" property="bmId" />
+    <result column="bm_mc" jdbcType="VARCHAR" property="bmMc" />
+    <result column="swjgbm" jdbcType="BIGINT" property="swjgbm" />
+    <result column="swjgmc" jdbcType="VARCHAR" property="swjgmc" />
+    <result column="accountnonexpired" jdbcType="BIT" property="accountnonexpired" />
+    <result column="accountnonlocked" jdbcType="BIT" property="accountnonlocked" />
+    <result column="credentialsnonexpired" jdbcType="BIT" property="credentialsnonexpired" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="bz" jdbcType="VARCHAR" property="bz" />
+    <result column="tbr" jdbcType="VARCHAR" property="tbr" />
+    <result column="tbrq" jdbcType="TIMESTAMP" property="tbrq" />
+    <result column="xgr" jdbcType="VARCHAR" property="xgr" />
+    <result column="xgrq" jdbcType="TIMESTAMP" property="xgrq" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="is_limit" jdbcType="BIT" property="isLimit" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password, xm, dh, dzyx, dw_id, dw_mc, bm_id, bm_mc, swjgbm, swjgmc, 
+    accountnonexpired, accountnonlocked, credentialsnonexpired, enabled, bz, tbr, tbrq, 
+    xgr, xgrq, is_delete, is_limit
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from security_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from security_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ynbwjf.myoauth.entity.SecurityUser">
+    insert into security_user (id, username, password, 
+      xm, dh, dzyx, dw_id, 
+      dw_mc, bm_id, bm_mc, swjgbm, 
+      swjgmc, accountnonexpired, accountnonlocked, 
+      credentialsnonexpired, enabled, bz, 
+      tbr, tbrq, xgr, xgrq, 
+      is_delete, is_limit)
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{xm,jdbcType=VARCHAR}, #{dh,jdbcType=VARCHAR}, #{dzyx,jdbcType=VARCHAR}, #{dwId,jdbcType=BIGINT}, 
+      #{dwMc,jdbcType=VARCHAR}, #{bmId,jdbcType=BIGINT}, #{bmMc,jdbcType=VARCHAR}, #{swjgbm,jdbcType=BIGINT}, 
+      #{swjgmc,jdbcType=VARCHAR}, #{accountnonexpired,jdbcType=BIT}, #{accountnonlocked,jdbcType=BIT}, 
+      #{credentialsnonexpired,jdbcType=BIT}, #{enabled,jdbcType=BIT}, #{bz,jdbcType=VARCHAR}, 
+      #{tbr,jdbcType=VARCHAR}, #{tbrq,jdbcType=TIMESTAMP}, #{xgr,jdbcType=VARCHAR}, #{xgrq,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=BIT}, #{isLimit,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ynbwjf.myoauth.entity.SecurityUser">
+    insert into security_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="xm != null">
+        xm,
+      </if>
+      <if test="dh != null">
+        dh,
+      </if>
+      <if test="dzyx != null">
+        dzyx,
+      </if>
+      <if test="dwId != null">
+        dw_id,
+      </if>
+      <if test="dwMc != null">
+        dw_mc,
+      </if>
+      <if test="bmId != null">
+        bm_id,
+      </if>
+      <if test="bmMc != null">
+        bm_mc,
+      </if>
+      <if test="swjgbm != null">
+        swjgbm,
+      </if>
+      <if test="swjgmc != null">
+        swjgmc,
+      </if>
+      <if test="accountnonexpired != null">
+        accountnonexpired,
+      </if>
+      <if test="accountnonlocked != null">
+        accountnonlocked,
+      </if>
+      <if test="credentialsnonexpired != null">
+        credentialsnonexpired,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="bz != null">
+        bz,
+      </if>
+      <if test="tbr != null">
+        tbr,
+      </if>
+      <if test="tbrq != null">
+        tbrq,
+      </if>
+      <if test="xgr != null">
+        xgr,
+      </if>
+      <if test="xgrq != null">
+        xgrq,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="isLimit != null">
+        is_limit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="xm != null">
+        #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="dh != null">
+        #{dh,jdbcType=VARCHAR},
+      </if>
+      <if test="dzyx != null">
+        #{dzyx,jdbcType=VARCHAR},
+      </if>
+      <if test="dwId != null">
+        #{dwId,jdbcType=BIGINT},
+      </if>
+      <if test="dwMc != null">
+        #{dwMc,jdbcType=VARCHAR},
+      </if>
+      <if test="bmId != null">
+        #{bmId,jdbcType=BIGINT},
+      </if>
+      <if test="bmMc != null">
+        #{bmMc,jdbcType=VARCHAR},
+      </if>
+      <if test="swjgbm != null">
+        #{swjgbm,jdbcType=BIGINT},
+      </if>
+      <if test="swjgmc != null">
+        #{swjgmc,jdbcType=VARCHAR},
+      </if>
+      <if test="accountnonexpired != null">
+        #{accountnonexpired,jdbcType=BIT},
+      </if>
+      <if test="accountnonlocked != null">
+        #{accountnonlocked,jdbcType=BIT},
+      </if>
+      <if test="credentialsnonexpired != null">
+        #{credentialsnonexpired,jdbcType=BIT},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="bz != null">
+        #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="tbr != null">
+        #{tbr,jdbcType=VARCHAR},
+      </if>
+      <if test="tbrq != null">
+        #{tbrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgr != null">
+        #{xgr,jdbcType=VARCHAR},
+      </if>
+      <if test="xgrq != null">
+        #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="isLimit != null">
+        #{isLimit,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ynbwjf.myoauth.entity.SecurityUser">
+    update security_user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="xm != null">
+        xm = #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="dh != null">
+        dh = #{dh,jdbcType=VARCHAR},
+      </if>
+      <if test="dzyx != null">
+        dzyx = #{dzyx,jdbcType=VARCHAR},
+      </if>
+      <if test="dwId != null">
+        dw_id = #{dwId,jdbcType=BIGINT},
+      </if>
+      <if test="dwMc != null">
+        dw_mc = #{dwMc,jdbcType=VARCHAR},
+      </if>
+      <if test="bmId != null">
+        bm_id = #{bmId,jdbcType=BIGINT},
+      </if>
+      <if test="bmMc != null">
+        bm_mc = #{bmMc,jdbcType=VARCHAR},
+      </if>
+      <if test="swjgbm != null">
+        swjgbm = #{swjgbm,jdbcType=BIGINT},
+      </if>
+      <if test="swjgmc != null">
+        swjgmc = #{swjgmc,jdbcType=VARCHAR},
+      </if>
+      <if test="accountnonexpired != null">
+        accountnonexpired = #{accountnonexpired,jdbcType=BIT},
+      </if>
+      <if test="accountnonlocked != null">
+        accountnonlocked = #{accountnonlocked,jdbcType=BIT},
+      </if>
+      <if test="credentialsnonexpired != null">
+        credentialsnonexpired = #{credentialsnonexpired,jdbcType=BIT},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="bz != null">
+        bz = #{bz,jdbcType=VARCHAR},
+      </if>
+      <if test="tbr != null">
+        tbr = #{tbr,jdbcType=VARCHAR},
+      </if>
+      <if test="tbrq != null">
+        tbrq = #{tbrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="xgr != null">
+        xgr = #{xgr,jdbcType=VARCHAR},
+      </if>
+      <if test="xgrq != null">
+        xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="isLimit != null">
+        is_limit = #{isLimit,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ynbwjf.myoauth.entity.SecurityUser">
+    update security_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      xm = #{xm,jdbcType=VARCHAR},
+      dh = #{dh,jdbcType=VARCHAR},
+      dzyx = #{dzyx,jdbcType=VARCHAR},
+      dw_id = #{dwId,jdbcType=BIGINT},
+      dw_mc = #{dwMc,jdbcType=VARCHAR},
+      bm_id = #{bmId,jdbcType=BIGINT},
+      bm_mc = #{bmMc,jdbcType=VARCHAR},
+      swjgbm = #{swjgbm,jdbcType=BIGINT},
+      swjgmc = #{swjgmc,jdbcType=VARCHAR},
+      accountnonexpired = #{accountnonexpired,jdbcType=BIT},
+      accountnonlocked = #{accountnonlocked,jdbcType=BIT},
+      credentialsnonexpired = #{credentialsnonexpired,jdbcType=BIT},
+      enabled = #{enabled,jdbcType=BIT},
+      bz = #{bz,jdbcType=VARCHAR},
+      tbr = #{tbr,jdbcType=VARCHAR},
+      tbrq = #{tbrq,jdbcType=TIMESTAMP},
+      xgr = #{xgr,jdbcType=VARCHAR},
+      xgrq = #{xgrq,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=BIT},
+      is_limit = #{isLimit,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ynbwjf.myoauth.dao.SecurityRoleToResourceMapper">
+  <resultMap id="BaseResultMap" type="com.ynbwjf.myoauth.entity.SecurityRoleToResource">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
+    <result column="resource_id" jdbcType="BIGINT" property="resourceId" />
+    <result column="dw_id" jdbcType="BIGINT" property="dwId" />
+    <result column="swjgbm" jdbcType="BIGINT" property="swjgbm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, role_id, resource_id, dw_id, swjgbm
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from security_role_to_resource
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from security_role_to_resource
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ynbwjf.myoauth.entity.SecurityRoleToResource">
+    insert into security_role_to_resource (id, role_id, resource_id, 
+      dw_id, swjgbm)
+    values (#{id,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT}, #{resourceId,jdbcType=BIGINT}, 
+      #{dwId,jdbcType=BIGINT}, #{swjgbm,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ynbwjf.myoauth.entity.SecurityRoleToResource">
+    insert into security_role_to_resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+      <if test="dwId != null">
+        dw_id,
+      </if>
+      <if test="swjgbm != null">
+        swjgbm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="dwId != null">
+        #{dwId,jdbcType=BIGINT},
+      </if>
+      <if test="swjgbm != null">
+        #{swjgbm,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ynbwjf.myoauth.entity.SecurityRoleToResource">
+    update security_role_to_resource
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
+      </if>
+      <if test="resourceId != null">
+        resource_id = #{resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="dwId != null">
+        dw_id = #{dwId,jdbcType=BIGINT},
+      </if>
+      <if test="swjgbm != null">
+        swjgbm = #{swjgbm,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ynbwjf.myoauth.entity.SecurityRoleToResource">
+    update security_role_to_resource
+    set role_id = #{roleId,jdbcType=BIGINT},
+      resource_id = #{resourceId,jdbcType=BIGINT},
+      dw_id = #{dwId,jdbcType=BIGINT},
+      swjgbm = #{swjgbm,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
