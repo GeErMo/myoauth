@@ -21,5 +21,5 @@ public interface SecurityRoleMapper {
 
     List<SecurityRole> selectAllRoles();
 
-    List<Long> selectRoleIdsByResourceId(Long resourceId);
+
 }

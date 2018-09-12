@@ -25,4 +25,5 @@ public interface SecurityRoleService {
      */
     List<Long> selectRoleIdsByResourceId(Long resourceId);
 
+
 }

@@ -300,4 +300,10 @@
       is_limit = #{isLimit,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectUserByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" /> FROM security_user
+    WHERE username = #{username,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

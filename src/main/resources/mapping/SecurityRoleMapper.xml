@@ -183,4 +183,12 @@
       is_delete = #{isDelete,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectAllRoles" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    FROM security_role
+  </select>
+
+
 </mapper>

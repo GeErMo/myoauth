@@ -278,4 +278,30 @@
       pxid = #{pxid,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <!-- 查询所有的资源权限信息 -->
+  <select id="selectAllResource" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from security_resource
+    where is_delete =0
+    order by id
+  </select>
+
+  <!-- 通过用户id查询资源权限信息 -->
+  <select id="selectResourceByUserId" parameterType="java.lang.Long"
+          resultMap="BaseResultMap">
+		SELECT
+		rtr2.id,rtr2.resource_name,rtr2.parent_id,rtr2.resource_path,rtr2.resource_url,
+		rtr2.menuflag,rtr2.leafflag,rtr2.openflag,rtr2.openmode
+		,rtr2.iconcls,rtr2.is_delete
+		from (select * from security_user_to_role
+		where user_id=#{userId,jdbcType=BIGINT}) utr
+		LEFT JOIN
+		(select rtr.role_id,resource.*
+		from security_role_to_resource rtr
+		LEFT JOIN security_resource resource
+		ON(rtr.resource_id=resource.id)
+		) rtr2 ON(utr.role_id = rtr2.role_id )
+		where is_delete=0
+	</select>
+
 </mapper>

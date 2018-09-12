@@ -1,7 +1,6 @@
 package com.ynbwjf.myoauth.security;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ynbwjf.myoauth.entity.SecurityResource;
 import com.ynbwjf.myoauth.entity.SecurityRole;
 import com.ynbwjf.myoauth.service.SecurityResourceService;
@@ -10,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.spel.ast.NullLiteral;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -67,7 +65,7 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
                         LOG.info("返回空值");
                         // throw new AccessDeniedException("ROLE_NO_USER");
                         Collection<ConfigAttribute> returnCollectionFind = new ArrayList<ConfigAttribute>();
-                        returnCollectionFind.add(new SecurityConfig("ROLE_NO_USER_Find"));
+//                        returnCollectionFind.add(new SecurityConfig("ROLE_ANONYMOUS"));
                         return returnCollectionFind;
                     }
                     LOG.info("资源权限检查结束");
@@ -78,7 +76,7 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
         }
         LOG.info("未找到此项权限!");
         Collection<ConfigAttribute> returnCollection = new ArrayList<ConfigAttribute>();
-        returnCollection.add(new SecurityConfig("ROLE_NO_USER"));
+//        returnCollection.add(new SecurityConfig("ROLE_ANONYMOUS"));
         LOG.info("资源权限检查结束");
         return returnCollection;
     }
@@ -95,6 +93,12 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
             LOG.info("****************************");
         }
         return ALL_CONFIG_ATTRIBUTES;
+    }
+    public void initResource() {
+
+        LOG.info("initResource()");
+        RESOURCE_ROLE_MAP = null;
+        this.getResourceRoleMap();
     }
     public void clear() {
         LOG.info("清空缓存权限..........");
@@ -119,7 +123,7 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return false;
+        return true;
     }
 
     /**

@@ -90,4 +90,10 @@
       swjgbm = #{swjgbm,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectRoleIdsByResourceId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from security_role_to_resource where resource_id = #{resourceId,jdbcType=BIGINT}
+  </select>
 </mapper>

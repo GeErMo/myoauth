@@ -16,4 +16,11 @@ public interface SecurityResourceService {
      * @return
      */
     List<SecurityResource> selectAllResource();
+    /**
+     * 通过用户id查询资源权限信息
+     *
+     * @param userId
+     * @return
+     */
+    public List<SecurityResource> selectResourceByUserId(Long userId);
 }

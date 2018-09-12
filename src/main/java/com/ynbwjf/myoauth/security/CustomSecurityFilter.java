@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.FilterInvocation;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.*;
@@ -22,44 +25,34 @@ import java.util.logging.LogRecord;
  * @Author: zrj
  * @Date: 2018-08-06 17:22
  */
+@Component
 public class CustomSecurityFilter extends AbstractSecurityInterceptor implements Filter {
     @Autowired
     private CustomSecurityMetadataSource customSecurityMetadataSource;
+
     private static final Logger LOG = LoggerFactory.getLogger(CustomSecurityFilter.class);
 
+    @Autowired
+    public void setAccessDecisionManager(CustomAccessDecisionManger customAccessDecisionManager) {
+        super.setAccessDecisionManager(customAccessDecisionManager);
+    }
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("初始化Security过滤器");
+        LOG.info("初始化Security过滤器");
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         LOG.info("SecurityFilter 开始 ...." );
-        LOG.info("userName:"+getPrincipal());
-        if(getPrincipal().equals("anonymousUser")){
-            //throw new AuthenticationException("出错:anonymousUser");
-            throw new BadCredentialsException("err:anonymousUser!" );
-
-        }
         FilterInvocation fi = new FilterInvocation(servletRequest, servletResponse, filterChain);
-    }
-
-    //获取缓存用户对象
-    private String getPrincipal(){
-        String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails)principal).getUsername();
-        } else {
-            userName = principal.toString();
-        }
-        return userName;
+        LOG.info("requestURL:" + fi.getRequestUrl());
+        invoke(fi);
     }
 
     public void invoke(FilterInvocation fi) throws IOException,ServletException{
         InterceptorStatusToken interceptorStatusToken = super.beforeInvocation(fi);
         try {
+            System.out.println("执行下一个拦截器");
             fi.getChain().doFilter(fi.getRequest(),fi.getResponse());
         }finally {
             super.afterInvocation(interceptorStatusToken,null);
@@ -81,11 +74,4 @@ public class CustomSecurityFilter extends AbstractSecurityInterceptor implements
         return this.customSecurityMetadataSource;
     }
 
-    public CustomSecurityMetadataSource getCustomSecurityMetadataSource() {
-        return customSecurityMetadataSource;
-    }
-
-    public void setCustomSecurityMetadataSource(CustomSecurityMetadataSource customSecurityMetadataSource) {
-        this.customSecurityMetadataSource = customSecurityMetadataSource;
-    }
 }

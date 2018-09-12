@@ -1,8 +1,10 @@
 package com.ynbwjf.myoauth.serviceImpl;
 
 import com.ynbwjf.myoauth.dao.SecurityRoleMapper;
+import com.ynbwjf.myoauth.dao.SecurityRoleToResourceMapper;
 import com.ynbwjf.myoauth.dao.SecurityUserToRoleMapper;
 import com.ynbwjf.myoauth.entity.SecurityRole;
+import com.ynbwjf.myoauth.entity.SecurityRoleToResource;
 import com.ynbwjf.myoauth.entity.SecurityUserToRole;
 import com.ynbwjf.myoauth.service.SecurityRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ public class SecurityRoleServiceImpl implements SecurityRoleService {
     private SecurityRoleMapper securityRoleMapper;
     @Autowired
     private SecurityUserToRoleMapper securityUserToRoleMapper;
+    @Autowired
+    private SecurityRoleToResourceMapper securityRoleToResourceMapper;
 
     @Override
     public List<SecurityRole> selectRolesByUserId(Long userId) {
@@ -24,7 +28,7 @@ public class SecurityRoleServiceImpl implements SecurityRoleService {
         List<SecurityRole> list = new ArrayList<>();
         if(!CollectionUtils.isEmpty(securityUserToRoles)){
             for (SecurityUserToRole securityUserToRole: securityUserToRoles) {
-                SecurityRole securityRole = securityRoleMapper.selectByPrimaryKey(securityUserToRole.getId());
+                SecurityRole securityRole = securityRoleMapper.selectByPrimaryKey(securityUserToRole.getRoleId());
                 list.add(securityRole);
             }
         }
@@ -39,7 +43,11 @@ public class SecurityRoleServiceImpl implements SecurityRoleService {
 
     @Override
     public List<Long> selectRoleIdsByResourceId(Long resourceId) {
-        List<Long> roleIds = securityRoleMapper.selectRoleIdsByResourceId(resourceId);
+        List<SecurityRoleToResource> roleToResourceList = securityRoleToResourceMapper.selectRoleIdsByResourceId(resourceId);
+        List<Long> roleIds = new ArrayList<>();
+        for (SecurityRoleToResource RoleToResource : roleToResourceList) {
+            roleIds.add(RoleToResource.getRoleId());
+        }
         return roleIds;
     }
 }

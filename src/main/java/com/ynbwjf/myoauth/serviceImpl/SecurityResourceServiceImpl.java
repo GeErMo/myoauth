@@ -24,4 +24,9 @@ public class SecurityResourceServiceImpl implements SecurityResourceService {
         List<SecurityResource> securityResources = securityResourceMapper.selectAllResource();
         return securityResources;
     }
+
+    @Override
+    public List<SecurityResource> selectResourceByUserId(Long userId) {
+        return securityResourceMapper.selectResourceByUserId(userId);
+    }
 }

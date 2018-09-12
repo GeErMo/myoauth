@@ -18,4 +18,11 @@ public interface SecurityResourceMapper {
 
     int updateByPrimaryKey(SecurityResource record);
     List<SecurityResource> selectAllResource();
+
+    /**
+     * 通过用户id查询资源信息
+     * @param id
+     * @return
+     */
+    List<SecurityResource> selectResourceByUserId(Long id);
 }

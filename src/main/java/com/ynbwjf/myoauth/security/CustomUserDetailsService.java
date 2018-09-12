@@ -45,6 +45,8 @@ public class CustomUserDetailsService implements UserDetailsService {
                 GrantedAuthority authority = new SimpleGrantedAuthority(role.getId().toString());
                 gas.add(authority);
             }
+//            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_ANONYMOUS");
+//            gas.add(authority);
         }
         CustomUserDetails customUserDetails = new CustomUserDetails(securityUser.getUsername(), securityUser.getPassword(), gas, securityUser.getAccountnonexpired(), securityUser.getAccountnonlocked(), securityUser.getCredentialsnonexpired(), securityUser.getEnabled(), securityUser.getXm(), securityUser.getDzyx(), securityUser.getId(), securityUser.getDwId(), securityUser.getBmId(),securityUser.getSwjgbm(),securityUser.getDh(), securityUser.getIsLimit());
         return customUserDetails;

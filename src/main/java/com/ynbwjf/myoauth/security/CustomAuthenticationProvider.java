@@ -11,6 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.stereotype.Component;
 
 /**
  * @Program: myoauth
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
  * @Author: zrj
  * @Date: 2018-08-13 9:22
  */
+@Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     private static Logger LOG = LoggerFactory.getLogger(CustomAuthenticationProvider.class);
     @Autowired
@@ -81,6 +83,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return false;
+        return UsernamePasswordAuthenticationToken.class.equals(aClass);
     }
 }

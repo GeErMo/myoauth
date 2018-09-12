@@ -83,32 +83,32 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.getPassword();
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return this.getUsername();
+        return this.username;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return this.accountnonlocked;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return this.enabled;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return this.credentialsnonexpired;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return this.accountnonexpired;
     }
 
     public void setUsername(String username) {

@@ -1,7 +1,11 @@
 package com.ynbwjf.myoauth.dao;
 
 import com.ynbwjf.myoauth.entity.SecurityRoleToResource;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface SecurityRoleToResourceMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +18,6 @@ public interface SecurityRoleToResourceMapper {
     int updateByPrimaryKeySelective(SecurityRoleToResource record);
 
     int updateByPrimaryKey(SecurityRoleToResource record);
+
+    List<SecurityRoleToResource> selectRoleIdsByResourceId(Long resourceId);
 }
